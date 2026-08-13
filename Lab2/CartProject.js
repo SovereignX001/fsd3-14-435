@@ -43,6 +43,17 @@ const displayCart = async () => {
   const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
   console.log(`Total payble amount Rs. ${total}`);
 };
+const updateQuantity = async (pid, newQty) => {
+  const cart = await getCart();
+  const isFoundInCart = cart.find((item) => item.id === pid);
+  if (isFoundInCart) {
+    isFoundInCart.qty = newQty;
+    await saveCart(cart);
+    console.log(`${isFoundInCart.name} quantity updated to ${newQty}`);
+  } else {
+    console.log(`Product with ID ${pid} not found in the cart.`);
+  }
+};
 
 const main = async () => {
   let choice;
