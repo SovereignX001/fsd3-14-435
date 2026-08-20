@@ -1,11 +1,12 @@
 import http from 'http';
 
-const server = http.createServer();
-server.on('request', (req, res)=>{
-    res.write("Welcome to the server side programming");
-    res.write("<h1>Nodemon is tracking the files</h1>");
-    res.end();
-})
-server.listen(5000, ()=>{
-    console.log("Server is running on port 5000");
+const server = http.createServer((req, res) => {
+    console.log("Welcome to Node JS");
+    res.end("Hello World");
+    console.log(req.url);
+});
+
+const PORT = 3000;
+server.listen(PORT, () => {
+    console.log(`Server is running...`);
 });
