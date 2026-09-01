@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "brand": "Apple",
+    "model": "iPhone 16",
+    "price": 79999,
+    "storage": "128GB",
+    "ram": "8GB",
+    "display": "6.1 inch",
+    "battery": "3561 mAh",
+    "os": "iOS"
+  },
+  {
+    "id": 2,
+    "brand": "Samsung",
+    "model": "Galaxy S25",
+    "price": 74999,
+    "storage": "256GB",
+    "ram": "12GB",
+    "display": "6.2 inch",
+    "battery": "4000 mAh",
+    "os": "Android"
+  },
+  {
+    "id": 3,
+    "brand": "OnePlus",
+    "model": "OnePlus 13",
+    "price": 69999,
+    "storage": "256GB",
+    "ram": "12GB",
+    "display": "6.82 inch",
+    "battery": "6000 mAh",
+    "os": "Android"
+  },
+  {
+    "id": 4,
+    "brand": "Google",
+    "model": "Pixel 9",
+    "price": 79999,
+    "storage": "128GB",
+    "ram": "12GB",
+    "display": "6.3 inch",
+    "battery": "4700 mAh",
+    "os": "Android"
+  },
+  {
+    "id": 5,
+    "brand": "Xiaomi",
+    "model": "Xiaomi 15",
+    "price": 64999,
+    "storage": "512GB",
+    "ram": "12GB",
+    "display": "6.36 inch",
+    "battery": "5400 mAh",
+    "os": "Android"
+  },
+  {
+    "id": 6,
+    "brand": "Nothing",
+    "model": "Phone 3",
+    "price": 44999,
+    "storage": "256GB",
+    "ram": "12GB",
+    "display": "6.67 inch",
+    "battery": "5150 mAh",
+    "os": "Android"
+  },
+  {
+    "id": 7,
+    "brand": "Motorola",
+    "model": "Edge 60 Pro",
+    "price": 39999,
+    "storage": "256GB",
+    "ram": "8GB",
+    "display": "6.7 inch",
+    "battery": "6000 mAh",
+    "os": "Android"
+  },
+  {
+    "id": 8,
+    "brand": "Realme",
+    "model": "GT 7",
+    "price": 44999,
+    "storage": "256GB",
+    "ram": "12GB",
+    "display": "6.78 inch",
+    "battery": "7000 mAh",
+    "os": "Android"
+  },
+  {
+    "id": 9,
+    "brand": "Vivo",
+    "model": "Vivo X200",
+    "price": 65999,
+    "storage": "512GB",
+    "ram": "16GB",
+    "display": "6.67 inch",
+    "battery": "5800 mAh",
+    "os": "Android"
+  },
+  {
+    "id": 10,
+    "brand": "Oppo",
+    "model": "Find X8",
+    "price": 69999,
+    "storage": "256GB",
+    "ram": "12GB",
+    "display": "6.59 inch",
+    "battery": "5630 mAh",
+    "os": "Android"
+  }
+]

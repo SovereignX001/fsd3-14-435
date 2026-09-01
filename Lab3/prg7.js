@@ -2,6 +2,7 @@ import http from "http";
 import {readFile} from "fs/promises";
 
 const server = http.createServer(async (req,res) => {
+    res.write("Loading...");
     const text = await readFile("big.txt");
     res.end(text);
 });

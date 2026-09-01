@@ -1,0 +1,795 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AirTag — Find What Matters</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: #f5f5f7;
+      color: #111;
+      overflow-x: hidden;
+    }
+
+    /* NAVBAR */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 7%;
+      background: rgba(255,255,255,.72);
+      backdrop-filter: blur(20px);
+      z-index: 100;
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+
+    .logo {
+      font-size: 21px;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 32px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-size: 14px;
+      transition: .25s;
+    }
+
+    nav a:hover {
+      color: #0071e3;
+    }
+
+    .buy-btn {
+      background: #0071e3;
+      color: white !important;
+      padding: 9px 18px;
+      border-radius: 22px;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      padding: 130px 7% 70px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 50px;
+      background:
+        radial-gradient(circle at 75% 45%, #dfeeff 0%, transparent 35%),
+        #f5f5f7;
+    }
+
+    .eyebrow {
+      color: #666;
+      font-size: 16px;
+      margin-bottom: 18px;
+      font-weight: 600;
+    }
+
+    .hero h1 {
+      font-size: clamp(58px, 8vw, 110px);
+      line-height: .9;
+      letter-spacing: -7px;
+      max-width: 650px;
+    }
+
+    .hero h1 span {
+      color: #0071e3;
+    }
+
+    .hero p {
+      margin-top: 30px;
+      max-width: 500px;
+      font-size: 20px;
+      line-height: 1.55;
+      color: #666;
+    }
+
+    .hero-actions {
+      margin-top: 35px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .primary {
+      text-decoration: none;
+      background: #111;
+      color: white;
+      padding: 15px 27px;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: .3s;
+    }
+
+    .primary:hover {
+      transform: translateY(-3px);
+      background: #0071e3;
+    }
+
+    .secondary {
+      color: #0071e3;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* AIRTAG VISUAL */
+    .product-stage {
+      height: 570px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 1000px;
+    }
+
+    .airtag {
+      width: 330px;
+      height: 330px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #ffffff, #d9d9de);
+      box-shadow:
+        30px 35px 60px rgba(0,0,0,.18),
+        inset -12px -15px 25px rgba(0,0,0,.12),
+        inset 10px 10px 20px rgba(255,255,255,.9);
+      position: relative;
+      animation: float 5s ease-in-out infinite;
+      transform-style: preserve-3d;
+    }
+
+    .airtag::before {
+      content: "";
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      top: 25px;
+      left: 25px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #fff, #e5e5e8);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,.08);
+    }
+
+    .apple-logo {
+      position: absolute;
+      z-index: 2;
+      width: 82px;
+      height: 92px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .apple-body {
+      width: 72px;
+      height: 75px;
+      background: #c9c9cd;
+      border-radius: 48% 48% 45% 45%;
+      position: absolute;
+      bottom: 5px;
+      left: 5px;
+    }
+
+    .apple-body::after {
+      content: "";
+      position: absolute;
+      width: 24px;
+      height: 35px;
+      background: #c9c9cd;
+      right: -8px;
+      top: 16px;
+      border-radius: 50%;
+    }
+
+    .apple-leaf {
+      width: 23px;
+      height: 13px;
+      background: #c9c9cd;
+      border-radius: 100% 0;
+      position: absolute;
+      top: -2px;
+      right: 15px;
+      transform: rotate(-20deg);
+    }
+
+    .ring {
+      position: absolute;
+      width: 390px;
+      height: 390px;
+      border: 1px solid rgba(0,113,227,.15);
+      border-radius: 50%;
+      animation: pulse 3s infinite;
+    }
+
+    .ring:nth-child(2) {
+      width: 470px;
+      height: 470px;
+      animation-delay: .7s;
+    }
+
+    @keyframes float {
+      0%,100% {
+        transform: translateY(0) rotateX(4deg) rotateY(-8deg);
+      }
+      50% {
+        transform: translateY(-20px) rotateX(-3deg) rotateY(8deg);
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(.8);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1.15);
+        opacity: 0;
+      }
+    }
+
+    /* INTRO */
+    .intro {
+      padding: 140px 10%;
+      text-align: center;
+      background: #fff;
+    }
+
+    .intro h2 {
+      font-size: clamp(42px, 6vw, 80px);
+      line-height: 1;
+      letter-spacing: -4px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .intro h2 span {
+      color: #aaa;
+    }
+
+    /* FEATURES */
+    .features {
+      padding: 110px 7%;
+      background: #111;
+      color: white;
+    }
+
+    .section-label {
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 12px;
+      margin-bottom: 15px;
+    }
+
+    .features > h2 {
+      font-size: clamp(40px, 6vw, 75px);
+      letter-spacing: -4px;
+      margin-bottom: 70px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      min-height: 400px;
+      padding: 35px;
+      border-radius: 28px;
+      background: #1c1c1e;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      transition: .4s;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      background: #242426;
+    }
+
+    .card-icon {
+      font-size: 50px;
+    }
+
+    .card h3 {
+      font-size: 28px;
+      letter-spacing: -1px;
+      margin-bottom: 15px;
+    }
+
+    .card p {
+      color: #aaa;
+      line-height: 1.6;
+    }
+
+    /* FIND SECTION */
+    .find {
+      padding: 140px 7%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 80px;
+      background: #f5f5f7;
+    }
+
+    .find h2 {
+      font-size: clamp(45px, 6vw, 75px);
+      line-height: .95;
+      letter-spacing: -4px;
+    }
+
+    .find p {
+      color: #666;
+      font-size: 18px;
+      line-height: 1.7;
+      margin-top: 25px;
+      max-width: 520px;
+    }
+
+    .phone {
+      width: 300px;
+      height: 590px;
+      background: #050505;
+      border: 8px solid #222;
+      border-radius: 45px;
+      margin: auto;
+      padding: 18px;
+      box-shadow: 30px 30px 60px rgba(0,0,0,.18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .phone-screen {
+      height: 100%;
+      border-radius: 30px;
+      background:
+        radial-gradient(circle at 40% 30%, rgba(0,113,227,.4), transparent 30%),
+        linear-gradient(160deg,#162338,#080c13);
+      padding: 30px 20px;
+      color: white;
+    }
+
+    .phone-screen small {
+      color: #aaa;
+    }
+
+    .map-dot {
+      width: 22px;
+      height: 22px;
+      background: #0071e3;
+      border: 5px solid white;
+      border-radius: 50%;
+      position: absolute;
+      top: 46%;
+      left: 54%;
+      box-shadow: 0 0 0 15px rgba(0,113,227,.2);
+      animation: location 2s infinite;
+    }
+
+    @keyframes location {
+      50% {
+        box-shadow: 0 0 0 28px rgba(0,113,227,0);
+      }
+    }
+
+    .location-card {
+      position: absolute;
+      bottom: 25px;
+      left: 20px;
+      right: 20px;
+      padding: 18px;
+      background: rgba(255,255,255,.1);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+    }
+
+    /* SPECS */
+    .specs {
+      padding: 120px 7%;
+      background: white;
+    }
+
+    .specs h2 {
+      font-size: 65px;
+      letter-spacing: -4px;
+      margin-bottom: 60px;
+    }
+
+    .spec-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 25px 0;
+      border-top: 1px solid #ddd;
+      font-size: 18px;
+    }
+
+    .spec-row span:first-child {
+      color: #777;
+    }
+
+    /* CTA */
+    .cta {
+      min-height: 70vh;
+      padding: 100px 7%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background:
+        radial-gradient(circle, #d9ebff, transparent 50%),
+        #f5f5f7;
+    }
+
+    .cta h2 {
+      font-size: clamp(55px, 9vw, 120px);
+      line-height: .85;
+      letter-spacing: -7px;
+    }
+
+    .cta p {
+      color: #666;
+      margin: 30px 0;
+      font-size: 18px;
+    }
+
+    footer {
+      padding: 35px 7%;
+      background: #111;
+      color: #777;
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+
+    /* RESPONSIVE */
+    @media(max-width: 800px) {
+
+      nav ul {
+        display: none;
+      }
+
+      .hero,
+      .find {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        text-align: center;
+      }
+
+      .hero p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .product-stage {
+        height: 450px;
+      }
+
+      .airtag {
+        width: 250px;
+        height: 250px;
+      }
+
+      .airtag::before {
+        width: 210px;
+        height: 210px;
+        top: 20px;
+        left: 20px;
+      }
+
+      .ring {
+        width: 300px;
+        height: 300px;
+      }
+
+      .ring:nth-child(2) {
+        width: 350px;
+        height: 350px;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .specs h2 {
+        font-size: 48px;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">AirTag</div>
+
+    <ul>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#find">Find</a></li>
+      <li><a href="#specs">Specs</a></li>
+      <li><a href="#buy" class="buy-btn">Buy</a></li>
+    </ul>
+  </nav>
+
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <div>
+      <div class="eyebrow">Apple AirTag</div>
+
+      <h1>
+        Lose less.<br>
+        <span>Find more.</span>
+      </h1>
+
+      <p>
+        AirTag is a simple way to keep track of your belongings.
+        Put one on your keys, backpack or luggage and find them
+        using the Find My network.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#buy" class="primary">Buy AirTag</a>
+        <a href="#features" class="secondary">Explore features →</a>
+      </div>
+    </div>
+
+
+    <div class="product-stage">
+
+      <div class="ring"></div>
+      <div class="ring"></div>
+
+      <div class="airtag">
+
+        <div class="apple-logo">
+          <div class="apple-body"></div>
+          <div class="apple-leaf"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- INTRO -->
+  <section class="intro">
+
+    <h2>
+      Your things.<br>
+      <span>Right where you left them.</span>
+    </h2>
+
+  </section>
+
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+
+    <div class="section-label">Why AirTag</div>
+
+    <h2>Designed to<br>be found.</h2>
+
+    <div class="feature-grid">
+
+      <div class="card">
+        <div class="card-icon">◎</div>
+
+        <div>
+          <h3>Precision Finding</h3>
+          <p>
+            Get precise directions to your AirTag with compatible
+            iPhone models and Ultra Wideband technology.
+          </p>
+        </div>
+      </div>
+
+
+      <div class="card">
+        <div class="card-icon">⌁</div>
+
+        <div>
+          <h3>Find My Network</h3>
+          <p>
+            Millions of Apple devices can help locate your lost
+            AirTag, while keeping your location private.
+          </p>
+        </div>
+      </div>
+
+
+      <div class="card">
+        <div class="card-icon">◉</div>
+
+        <div>
+          <h3>Built for Privacy</h3>
+          <p>
+            Your location and history stay private. AirTag is
+            designed with privacy and security in mind.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FIND -->
+  <section class="find" id="find">
+
+    <div>
+      <div class="section-label">Find nearby</div>
+
+      <h2>
+        Hear it.<br>
+        Find it.<br>
+        Done.
+      </h2>
+
+      <p>
+        Play a sound on your AirTag to help locate nearby items.
+        If it's further away, use the Find My app to see where
+        it was last detected.
+      </p>
+    </div>
+
+
+    <div class="phone">
+
+      <div class="phone-screen">
+
+        <small>Find My</small>
+
+        <h3 style="margin-top:15px;font-size:28px;">
+          Backpack
+        </h3>
+
+        <div class="map-dot"></div>
+
+        <div class="location-card">
+          <strong>Backpack</strong>
+          <br>
+          <small>12 m away</small>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- SPECS -->
+  <section class="specs" id="specs">
+
+    <div class="section-label">Technical specifications</div>
+
+    <h2>Small details.<br>Big difference.</h2>
+
+    <div class="spec-row">
+      <span>Dimensions</span>
+      <strong>31.9 mm × 8.0 mm</strong>
+    </div>
+
+    <div class="spec-row">
+      <span>Weight</span>
+      <strong>11 grams</strong>
+    </div>
+
+    <div class="spec-row">
+      <span>Connectivity</span>
+      <strong>Bluetooth / Ultra Wideband</strong>
+    </div>
+
+    <div class="spec-row">
+      <span>Water resistance</span>
+      <strong>IP67</strong>
+    </div>
+
+    <div class="spec-row">
+      <span>Battery</span>
+      <strong>Replaceable CR2032</strong>
+    </div>
+
+    <div class="spec-row">
+      <span>Compatibility</span>
+      <strong>iPhone & Apple devices</strong>
+    </div>
+
+  </section>
+
+
+  <!-- CTA -->
+  <section class="cta" id="buy">
+
+    <h2>
+      Find<br>
+      your way.
+    </h2>
+
+    <p>
+      AirTag. A smarter way to keep track of what matters.
+    </p>
+
+    <a href="#" class="primary">
+      Buy AirTag
+    </a>
+
+  </section>
+
+
+  <footer>
+    <span>© 2026 AirTag Concept</span>
+    <span>Designed with precision.</span>
+  </footer>
+
+
+  <script>
+
+    // Subtle mouse parallax on AirTag
+    const tag = document.querySelector(".airtag");
+
+    document.addEventListener("mousemove", (e) => {
+
+      if (window.innerWidth < 800) return;
+
+      const x = (window.innerWidth / 2 - e.clientX) / 40;
+      const y = (window.innerHeight / 2 - e.clientY) / 40;
+
+      tag.style.transform =
+        `translateY(-5px) rotateX(${y}deg) rotateY(${-x}deg)`;
+
+    });
+
+  </script>
+
+</body>
+</html>
+```

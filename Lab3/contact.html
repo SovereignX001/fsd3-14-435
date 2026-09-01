@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | NovaTech Solutions</title>
+  <style>
+    /* Global Reset & Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f4f7f6;
+      color: #333;
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    /* Header Section */
+    .header {
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      color: #ffffff;
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    /* Content Layout */
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    /* Contact Details Column */
+    .contact-info {
+      background-color: #fcfcfc;
+      padding: 40px;
+      border-right: 1px solid #eaeaea;
+    }
+
+    .contact-info h2 {
+      font-size: 1.6rem;
+      margin-bottom: 25px;
+      color: #1e3c72;
+    }
+
+    .info-group {
+      margin-bottom: 25px;
+    }
+
+    .info-group h3 {
+      font-size: 1rem;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .info-group p, 
+    .info-group a {
+      font-size: 1.05rem;
+      color: #333;
+      text-decoration: none;
+    }
+
+    .info-group a:hover {
+      color: #2a5298;
+      text-decoration: underline;
+    }
+
+    /* Contact Form Column */
+    .contact-form {
+      padding: 40px;
+    }
+
+    .contact-form h2 {
+      font-size: 1.6rem;
+      margin-bottom: 25px;
+      color: #1e3c72;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #444;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #2a5298;
+      outline: none;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    /* Submit Button */
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: #2a5298;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .submit-btn:hover {
+      background: #1e3c72;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .content {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-info {
+        border-right: none;
+        border-bottom: 1px solid #eaeaea;
+      }
+
+      .header h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header class="header">
+      <h1>Get in Touch</h1>
+      <p>We'd love to hear from you. Please fill out the form or reach out directly.</p>
+    </header>
+
+    <div class="content">
+      
+      <section class="contact-info">
+        <h2>Contact Information</h2>
+        
+        <div class="info-group">
+          <h3>Our Office</h3>
+          <p>NovaTech Solutions Inc.<br>
+             123 Innovation Way, Suite 400<br>
+             Metropolis, NY 10001
+          </p>
+        </div>
+
+        <div class="info-group">
+          <h3>Email Us</h3>
+          <p><a href="mailto:support@novatech-example.com">support@novatech-example.com</a></p>
+          <p><a href="mailto:sales@novatech-example.com">sales@novatech-example.com</a></p>
+        </div>
+
+        <div class="info-group">
+          <h3>Call Us</h3>
+          <p><a href="tel:+18005550199">+1 (800) 555-0199</a> (Toll-Free)</p>
+          <p><a href="tel:+12125550143">+1 (212) 555-0143</a> (Direct)</p>
+        </div>
+
+        <div class="info-group">
+          <h3>Business Hours</h3>
+          <p>Monday – Friday: 9:00 AM – 6:00 PM EST<br>
+             Saturday – Sunday: Closed
+          </p>
+        </div>
+      </section>
+
+      <section class="contact-form">
+        <h2>Send a Message</h2>
+        <form action="#" method="POST">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="John Doe" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="john.doe@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <select id="subject" name="subject">
+              <option value="general">General Inquiry</option>
+              <option value="support">Technical Support</option>
+              <option value="sales">Sales & Partnerships</option>
+              <option value="feedback">Feedback</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" placeholder="How can we help you today?" required></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+      </section>
+
+    </div>
+  </div>
+
+</body>
+</html>

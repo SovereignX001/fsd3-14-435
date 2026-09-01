@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Huayra Roadster — Carbo-Titanium Sculpture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0a0b;
+    --bg-panel: #131215;
+    --bg-panel-2: #17161a;
+    --line: #29282a;
+    --line-soft: #1d1c1f;
+    --titanium: #cac7bd;
+    --titanium-dim: #706e66;
+    --copper: #b6742e;
+    --copper-bright: #e2a45c;
+    --copper-dim: #5c451f;
+    --paper: #e9e6da;
+    --text: #eeece4;
+    --text-dim: #92908a;
+    --text-faint: #55534e;
+    --redline: #9a3324;
+    --radius: 2px;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Manrope', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection{ background: var(--copper-dim); color: var(--paper); }
+
+  a{ color: inherit; }
+
+  .mono{ font-family: 'JetBrains Mono', monospace; }
+
+  .display{
+    font-family: 'Bodoni Moda', serif;
+    font-optical-sizing: auto;
+  }
+
+  /* ---------- shared blueprint grid backdrop ---------- */
+  .blueprint-grid{
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(var(--line-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity:.5;
+    pointer-events:none;
+  }
+
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color: var(--copper);
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:20px; height:1px;
+    background: var(--copper);
+    display:inline-block;
+  }
+
+  /* ---------- nav ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 22px 5vw;
+    background: linear-gradient(to bottom, rgba(10,10,11,.92), rgba(10,10,11,0));
+  }
+  .wordmark{
+    font-family:'Bodoni Moda', serif;
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+  }
+  .wordmark span{ color: var(--copper); }
+  nav ul{ list-style:none; display:flex; gap:34px; }
+  nav a{
+    text-decoration:none;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color: var(--text-dim);
+    transition: color .3s ease;
+  }
+  nav a:hover, nav a:focus-visible{ color: var(--copper-bright); }
+  @media (max-width: 760px){ nav{ display:none; } }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap: 30px;
+    padding: 150px 5vw 70px;
+    overflow:hidden;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .hero-corner-tag{
+    position:absolute; z-index:2;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    letter-spacing:.15em;
+    color: var(--text-faint);
+  }
+  .hero-corner-tag.tl{ top:96px; left:5vw; }
+  .hero-corner-tag.tr{ top:96px; right:5vw; text-align:right; }
+  .hero-corner-tag.bl{ bottom:24px; left:5vw; }
+  .hero-corner-tag.br{ bottom:24px; right:5vw; text-align:right; }
+  @media (max-width: 760px){ .hero-corner-tag{ display:none; } }
+
+  .hero-inner{
+    position:relative; z-index:2;
+    display:flex;
+    flex-direction:column;
+    gap: 44px;
+  }
+
+  .hero-title{
+    font-size: clamp(48px, 8.4vw, 118px);
+    line-height: .92;
+    font-weight: 500;
+    letter-spacing: -.01em;
+    color: var(--paper);
+  }
+  .hero-title em{
+    font-style: italic;
+    font-weight: 400;
+    color: var(--titanium-dim);
+  }
+  .hero-sub{
+    margin-top: 22px;
+    max-width: 34ch;
+    color: var(--text-dim);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .hero-meta{
+    margin-top: 34px;
+    display:flex; gap: 34px;
+  }
+  .hero-meta div{ font-family:'JetBrains Mono', monospace; }
+  .hero-meta .num{ font-size:20px; color: var(--paper); }
+  .hero-meta .lbl{ font-size:10px; letter-spacing:.14em; text-transform:uppercase; color: var(--text-faint); margin-top:4px; }
+
+  .hero-art{ position:relative; }
+  .hero-art svg{ width:100%; height:auto; overflow:visible; display:block; }
+
+  .sketch-panel-frame{ fill:none; stroke: var(--line); stroke-width:1; }
+  .sketch-label{
+    font-family:'JetBrains Mono', monospace; font-size:9.5px; letter-spacing:.12em;
+    fill: var(--text-faint); text-transform:uppercase;
+  }
+
+  .sketch-main{
+    fill:none; stroke: var(--titanium); stroke-width: 1.3;
+    stroke-linecap: round; stroke-linejoin: round;
+    stroke-dasharray: 3400; stroke-dashoffset: 3400;
+    animation: draw 3.4s cubic-bezier(.2,.7,.2,1) .4s forwards;
+  }
+  .sketch-ghost{
+    fill:none; stroke: var(--titanium); stroke-width: 1;
+    stroke-linecap: round; stroke-linejoin: round;
+    opacity: .22;
+    stroke-dasharray: 3400; stroke-dashoffset: 3400;
+    animation: draw 3.6s cubic-bezier(.2,.7,.2,1) .55s forwards;
+  }
+  .sketch-accent{
+    fill:none; stroke: var(--copper); stroke-width: 1;
+    stroke-linecap: round; opacity:.85;
+    stroke-dasharray: 1400; stroke-dashoffset: 1400;
+    animation: draw 2.2s cubic-bezier(.2,.7,.2,1) 1.6s forwards;
+  }
+  .sketch-detail{
+    fill:none; stroke: var(--titanium); stroke-width: 1;
+    stroke-linecap: round; opacity:.9;
+    stroke-dasharray: 900; stroke-dashoffset: 900;
+    animation: draw 1.8s cubic-bezier(.2,.7,.2,1) 2s forwards;
+  }
+  .sketch-hatch{
+    stroke: var(--titanium); stroke-width: .7; opacity:0;
+    animation: hatchIn 1s ease 2.6s forwards;
+  }
+  .sketch-inset-line{
+    fill:none; stroke: var(--titanium); stroke-width: 1;
+    stroke-linecap: round;
+    stroke-dasharray: 700; stroke-dashoffset: 700;
+    animation: draw 1.6s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  .sketch-flow{
+    fill:none; stroke: var(--titanium); stroke-width: .6; opacity:.14;
+    stroke-dasharray: 2400; stroke-dashoffset: 2400;
+    animation: draw 3s ease .2s forwards;
+  }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+  @keyframes hatchIn{ to{ opacity:.35; } }
+
+  .scroll-cue{
+    position:absolute; z-index:2; bottom:26px; left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+    font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:.2em;
+    color: var(--text-faint); text-transform:uppercase;
+  }
+  .scroll-cue .stem{ width:1px; height:30px; background:linear-gradient(var(--copper), transparent); animation: stem 2s ease-in-out infinite; }
+  @keyframes stem{ 0%,100%{ transform:scaleY(1); opacity:.4;} 50%{ transform:scaleY(1.3); opacity:1;} }
+
+  /* ---------- section shell ---------- */
+  section{ position:relative; padding: 120px 5vw; border-bottom:1px solid var(--line); }
+  .section-head{ max-width: 640px; margin-bottom: 64px; }
+  .section-head h2{
+    font-family:'Bodoni Moda', serif;
+    font-size: clamp(30px, 4vw, 48px);
+    font-weight:500;
+    color: var(--paper);
+    margin-top: 14px;
+    line-height:1.1;
+  }
+  .reveal{ opacity:0; transform: translateY(28px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in{ opacity:1; transform:none; }
+
+  /* ---------- philosophy strip ---------- */
+  .philosophy{ padding: 100px 5vw; }
+  .philosophy blockquote{
+    font-family:'Bodoni Moda', serif;
+    font-style: italic;
+    font-weight:400;
+    font-size: clamp(22px, 3vw, 36px);
+    line-height:1.45;
+    max-width: 900px;
+    color: var(--paper);
+  }
+  .philosophy blockquote span{ color: var(--copper); font-style:normal; }
+  .philosophy cite{
+    display:block; margin-top:28px;
+    font-family:'JetBrains Mono', monospace; font-style:normal;
+    font-size:11px; letter-spacing:.18em; text-transform:uppercase; color: var(--text-faint);
+  }
+
+  /* ---------- telemetry / engine ---------- */
+  .telemetry-panel{
+    background: var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  .spec-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top:1px solid var(--line);
+  }
+  @media (max-width: 760px){ .spec-grid{ grid-template-columns: repeat(2,1fr); } }
+  .spec-cell{
+    padding: 34px 28px;
+    border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .spec-cell:nth-child(3n){ border-right:none; }
+  @media (max-width: 760px){ .spec-cell:nth-child(2n){ border-right:none; } .spec-cell:nth-child(3n){ border-right:1px solid var(--line); } }
+  .spec-cell .lbl{
+    font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:.16em;
+    text-transform:uppercase; color: var(--text-faint); margin-bottom:14px;
+  }
+  .spec-cell .val{
+    font-family:'JetBrains Mono', monospace; font-weight:600;
+    font-size: clamp(26px, 2.6vw, 38px); color: var(--paper);
+    display:flex; align-items:baseline; gap:6px;
+  }
+  .spec-cell .val .unit{ font-size:14px; color: var(--copper-bright); font-weight:500; }
+
+  .rev-instrument{ padding: 30px 28px; border-top:1px solid var(--line); }
+  .rev-instrument .lbl{ font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color: var(--text-faint); margin-bottom:16px; }
+  .rev-track{ position:relative; height:10px; background: var(--bg-panel-2); border:1px solid var(--line); border-radius:1px; overflow:hidden; }
+  .rev-fill{
+    position:absolute; inset:0; width:0%;
+    background: linear-gradient(90deg, var(--copper-dim), var(--copper), var(--copper-bright));
+    transition: width 1.8s cubic-bezier(.2,.7,.2,1);
+  }
+  .rev-fill.redline{ background: linear-gradient(90deg, var(--copper-dim), var(--copper), var(--redline)); }
+  .rev-ticks{ display:flex; justify-content:space-between; margin-top:8px; font-family:'JetBrains Mono', monospace; font-size:9px; color: var(--text-faint); }
+
+  /* ---------- materials ---------- */
+  .material-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border:1px solid var(--line); }
+  @media (max-width: 860px){ .material-grid{ grid-template-columns: 1fr; } }
+  .material-card{
+    position:relative; background: var(--bg-panel); padding: 36px 30px 30px;
+    min-height: 300px; overflow:hidden;
+    transition: transform .5s cubic-bezier(.2,.7,.2,1);
+  }
+  .material-card:hover{ transform: translateY(-4px); }
+  .material-swatch{
+    position:absolute; inset:0; opacity:.5;
+    transition: opacity .5s ease, transform .8s ease;
+  }
+  .material-card:hover .material-swatch{ opacity:.75; transform: scale(1.04); }
+  .swatch-carbo{
+    background-image:
+      repeating-linear-gradient(45deg, #201f22 0 6px, #17161a 6px 12px),
+      repeating-linear-gradient(-45deg, rgba(182,116,46,.06) 0 6px, transparent 6px 12px);
+  }
+  .swatch-titanium{
+    background-image: repeating-linear-gradient(100deg, #232226 0px, #2c2b2f 2px, #201f22 4px);
+  }
+  .swatch-alcantara{
+    background-image: radial-gradient(circle at 20% 30%, rgba(233,230,218,.05) 0, transparent 40%),
+                       radial-gradient(circle at 70% 60%, rgba(233,230,218,.04) 0, transparent 45%),
+                       linear-gradient(#1a191c, #1a191c);
+  }
+  .material-content{ position:relative; z-index:2; }
+  .material-content .idx{ font-family:'JetBrains Mono', monospace; font-size:11px; color: var(--copper); letter-spacing:.14em; }
+  .material-content h3{ font-family:'Bodoni Moda', serif; font-weight:500; font-size:26px; color: var(--paper); margin: 14px 0 12px; }
+  .material-content p{ font-size:14px; line-height:1.65; color: var(--text-dim); max-width: 32ch; }
+
+  /* ---------- gearbox sequence ---------- */
+  .gear-list{ display:flex; flex-direction:column; border-top:1px solid var(--line); }
+  .gear-row{
+    display:grid; grid-template-columns: 60px 1fr 140px 140px;
+    align-items:center; padding: 16px 0; border-bottom:1px solid var(--line);
+    font-family:'JetBrains Mono', monospace; font-size:13px; color: var(--text-dim);
+  }
+  .gear-row .g-num{ color: var(--copper-bright); font-weight:600; }
+  .gear-row .g-name{ color: var(--text); font-family:'Manrope',sans-serif; font-size:14px; }
+  @media (max-width: 640px){
+    .gear-row{ grid-template-columns: 40px 1fr 90px; font-size:11px; }
+    .gear-row .g-torque{ display:none; }
+  }
+  .gear-row .bar-wrap{ height:4px; background: var(--bg-panel-2); position:relative; }
+  .gear-row .bar{ position:absolute; inset:0; width:0%; background: var(--copper); transition: width 1.2s ease; }
+
+  /* ---------- closing ---------- */
+  .closing{
+    padding: 140px 5vw 100px; text-align:center; border-bottom:none;
+    background: radial-gradient(ellipse at 50% 0%, rgba(182,116,46,.06), transparent 60%);
+  }
+  .closing h2{
+    font-family:'Bodoni Moda', serif; font-weight:500;
+    font-size: clamp(34px, 5vw, 64px); color: var(--paper); max-width: 16ch; margin: 20px auto 26px;
+  }
+  .closing p{ color: var(--text-dim); max-width: 46ch; margin: 0 auto 40px; font-size:15px; line-height:1.6; }
+  .cta{
+    display:inline-flex; align-items:center; gap:14px;
+    padding: 16px 30px;
+    border: 1px solid var(--copper);
+    color: var(--paper);
+    text-decoration:none;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+    background: transparent;
+    transition: background .35s ease, color .35s ease;
+    cursor:pointer;
+  }
+  .cta:hover, .cta:focus-visible{ background: var(--copper); color: #100b06; }
+  .cta:focus-visible{ outline: 2px solid var(--copper-bright); outline-offset: 3px; }
+
+  footer{
+    padding: 30px 5vw; display:flex; justify-content:space-between; align-items:center;
+    font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:.1em; color: var(--text-faint);
+  }
+  @media (max-width: 640px){ footer{ flex-direction:column; gap:10px; text-align:center; } }
+
+  a.cta:focus-visible, nav a:focus-visible{ }
+  :focus-visible{ outline: 2px solid var(--copper-bright); outline-offset: 2px; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: .001s !important; animation-iteration-count: 1 !important; transition-duration: .001s !important; scroll-behavior:auto !important; }
+    .blueprint-line{ stroke-dashoffset:0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wordmark">Pagani <span>&mdash;</span> Huayra Roadster</div>
+  <nav>
+    <ul>
+      <li><a href="#engine">Engine</a></li>
+      <li><a href="#materials">Materials</a></li>
+      <li><a href="#transmission">Transmission</a></li>
+      <li><a href="#inquire">Inquire</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="blueprint-grid"></div>
+  <span class="hero-corner-tag tl mono">FIG. 01 — GENERAL ARRANGEMENT</span>
+  <span class="hero-corner-tag tr mono">SCALE 1:1<br>REV. 764</span>
+
+  <div class="hero-inner">
+    <div>
+      <p class="eyebrow">Carbo-Titanium HP62-G2 Monocoque</p>
+      <h1 class="hero-title display">HUAYRA<br><em>Roadster</em></h1>
+      <p class="hero-sub">An open-top study in the alliance of art and engineering — six litres of twin-turbocharged V12, dressed in a weave born for the runway of an aircraft, not a road.</p>
+      <div class="hero-meta">
+        <div><div class="num">764</div><div class="lbl">CV</div></div>
+        <div><div class="num">3.2s</div><div class="lbl">0&ndash;100 km/h</div></div>
+        <div><div class="num">383</div><div class="lbl">km/h max</div></div>
+        <div><div class="num">100</div><div class="lbl">Examples</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="hero-art" aria-hidden="true">
+    <svg viewBox="0 0 1200 560" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- sweeping background construction flow -->
+      <path class="sketch-flow" d="M-20,120 C200,60 420,180 640,100 C820,36 1000,90 1220,50"/>
+      <path class="sketch-flow" d="M-20,480 C240,540 460,440 700,500 C880,544 1040,470 1220,510"/>
+      <path class="sketch-flow" d="M40,20 C300,140 260,300 40,380"/>
+
+      <!-- panel frames -->
+      <rect class="sketch-panel-frame" x="30" y="20" width="230" height="200"/>
+      <rect class="sketch-panel-frame" x="940" y="20" width="230" height="140"/>
+      <text class="sketch-label" x="30" y="238">Wheel — Forged Alloy, 21"</text>
+      <text class="sketch-label" x="940" y="178">Optic Module — Full LED</text>
+      <text class="sketch-label" x="330" y="538">Side Elevation — 1:1</text>
+
+      <!-- ===== WHEEL DETAIL (top-left) ===== -->
+      <g transform="translate(145,118)">
+        <circle class="sketch-inset-line" r="78" style="animation-delay:1.9s;"/>
+        <circle class="sketch-inset-line" r="52" style="animation-delay:2.05s; stroke-dasharray:460; stroke-dashoffset:460;"/>
+        <circle class="sketch-inset-line" r="10" style="animation-delay:2.3s; stroke-dasharray:80; stroke-dashoffset:80;"/>
+        <g class="sketch-detail" style="animation-delay:2.4s;">
+          <line x1="0" y1="0" x2="0" y2="-50"/>
+          <line x1="0" y1="0" x2="42" y2="-27"/>
+          <line x1="0" y1="0" x2="42" y2="27"/>
+          <line x1="0" y1="0" x2="0" y2="50"/>
+          <line x1="0" y1="0" x2="-42" y2="27"/>
+          <line x1="0" y1="0" x2="-42" y2="-27"/>
+        </g>
+        <circle class="sketch-accent" r="64" style="animation-delay:2.5s; stroke-dasharray:16 10;"/>
+      </g>
+
+      <!-- ===== OPTIC / EYE DETAIL (top-right) ===== -->
+      <g transform="translate(1055,90)" class="sketch-detail" style="animation-delay:2.1s;">
+        <path d="M-90,0 C-60,-30 60,-30 90,0 C60,22 -60,22 -90,0 Z"/>
+        <path d="M-90,0 C-60,-14 60,-14 90,0" opacity=".5"/>
+        <circle cx="0" cy="0" r="16"/>
+        <circle cx="0" cy="0" r="5"/>
+        <path d="M-70,-22 L-84,-34 M-40,-30 L-48,-44 M40,-30 L48,-44 M70,-22 L84,-34" opacity=".6"/>
+      </g>
+
+      <!-- ===== SIDE ELEVATION (main) ===== -->
+      <g transform="translate(60,10)">
+        <!-- ghost duplicate strokes for hand-sketch feel -->
+        <path class="sketch-ghost" transform="translate(3,-2)" d="M90,330 C95,300 120,278 160,268 C185,232 245,190 320,176 C365,166 400,170 420,182
+          C465,158 560,150 610,164 C665,150 715,160 745,190 C785,212 815,246 828,282
+          C834,304 828,324 810,332 L775,336 C771,354 754,368 733,368 C712,368 696,354 692,336
+          L470,336 C466,356 447,370 424,370 C401,370 385,356 381,336 L215,336
+          C211,354 194,368 173,368 C152,368 136,354 132,336 L104,332
+          C88,328 84,312 88,300 Z"/>
+
+        <path class="sketch-main" d="M90,330 C95,300 120,278 160,268 C185,232 245,190 320,176 C365,166 400,170 420,182
+          C465,158 560,150 610,164 C665,150 715,160 745,190 C785,212 815,246 828,282
+          C834,304 828,324 810,332 L775,336 C771,354 754,368 733,368 C712,368 696,354 692,336
+          L470,336 C466,356 447,370 424,370 C401,370 385,356 381,336 L215,336
+          C211,354 194,368 173,368 C152,368 136,354 132,336 L104,332
+          C88,328 84,312 88,300 Z"/>
+
+        <!-- windscreen + cockpit -->
+        <path class="sketch-main" d="M420,182 C438,158 452,138 462,124 C468,116 480,112 492,114 C500,124 500,140 494,158
+          C520,150 560,148 590,152"/>
+        <path class="sketch-ghost" d="M424,186 C442,166 456,148 466,132"/>
+
+        <!-- roll hoops -->
+        <path class="sketch-detail" style="animation-delay:1.9s;" d="M460,116 C464,104 476,98 486,102 C492,106 492,114 488,120"/>
+        <path class="sketch-detail" style="animation-delay:2s;" d="M498,116 C502,106 512,102 520,106 C526,110 524,118 518,122"/>
+
+        <!-- front wheel arch -->
+        <path class="sketch-accent" d="M226,282 C236,244 260,220 288,218 C316,220 340,244 350,282"/>
+        <!-- rear wheel arch -->
+        <path class="sketch-accent" d="M742,286 C752,246 776,222 804,220 C832,222 856,246 866,286"/>
+
+        <!-- side scallop / intake blade -->
+        <path class="sketch-detail" style="animation-delay:1.7s;" d="M400,246 C450,228 520,228 575,238 C650,250 715,244 780,252"/>
+        <path class="sketch-detail" style="animation-delay:1.8s; opacity:.5;" d="M405,258 C460,244 525,246 580,254 C645,264 705,258 765,264"/>
+
+        <!-- door shut line -->
+        <path class="sketch-detail" style="animation-delay:1.6s;" d="M430,192 C426,230 424,270 428,300"/>
+
+        <!-- mirror -->
+        <path class="sketch-detail" style="animation-delay:2.05s;" d="M400,178 C392,172 384,174 380,182 C378,190 384,196 392,194 C400,192 404,184 400,178 Z M392,194 L384,204"/>
+
+        <!-- front & rear lamp hints -->
+        <path class="sketch-detail" style="animation-delay:2.15s;" d="M108,304 C116,298 128,299 133,306 C129,313 115,313 108,304 Z"/>
+        <path class="sketch-detail" style="animation-delay:2.2s;" d="M812,290 C806,282 794,282 790,292 C796,300 808,298 812,290 Z"/>
+
+        <!-- rear diffuser fins -->
+        <path class="sketch-detail" style="animation-delay:2.3s;" d="M770,362 L758,374 M748,364 L736,376 M726,364 L714,376"/>
+
+        <!-- wheels -->
+        <g>
+          <circle class="sketch-main" cx="288" cy="336" r="52"/>
+          <circle class="sketch-ghost" cx="288" cy="336" r="35"/>
+          <g class="sketch-detail" style="animation-delay:2.4s;" transform="translate(288,336)">
+            <line x1="0" y1="0" x2="0" y2="-32"/>
+            <line x1="0" y1="0" x2="28" y2="-18"/>
+            <line x1="0" y1="0" x2="28" y2="18"/>
+            <line x1="0" y1="0" x2="0" y2="32"/>
+            <line x1="0" y1="0" x2="-28" y2="18"/>
+            <line x1="0" y1="0" x2="-28" y2="-18"/>
+          </g>
+        </g>
+        <g>
+          <circle class="sketch-main" cx="804" cy="336" r="52"/>
+          <circle class="sketch-ghost" cx="804" cy="336" r="35"/>
+          <g class="sketch-detail" style="animation-delay:2.45s;" transform="translate(804,336)">
+            <line x1="0" y1="0" x2="0" y2="-32"/>
+            <line x1="0" y1="0" x2="28" y2="-18"/>
+            <line x1="0" y1="0" x2="28" y2="18"/>
+            <line x1="0" y1="0" x2="0" y2="32"/>
+            <line x1="0" y1="0" x2="-28" y2="18"/>
+            <line x1="0" y1="0" x2="-28" y2="-18"/>
+          </g>
+        </g>
+
+        <!-- cross-hatch ground shadow -->
+        <g class="sketch-hatch">
+          <line x1="150" y1="382" x2="164" y2="368"/><line x1="166" y1="382" x2="180" y2="368"/>
+          <line x1="182" y1="382" x2="196" y2="368"/><line x1="198" y1="382" x2="212" y2="368"/>
+          <line x1="380" y1="382" x2="394" y2="368"/><line x1="396" y1="382" x2="410" y2="368"/>
+          <line x1="412" y1="382" x2="426" y2="368"/><line x1="428" y1="382" x2="442" y2="368"/>
+          <line x1="660" y1="382" x2="674" y2="368"/><line x1="676" y1="382" x2="690" y2="368"/>
+          <line x1="692" y1="382" x2="706" y2="368"/><line x1="708" y1="382" x2="722" y2="368"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+  <div class="scroll-cue"><span>Scroll</span><span class="stem"></span></div>
+</section>
+
+<section class="philosophy">
+  <blockquote class="reveal">
+    A car, like a sculpture, should be beautiful from any angle it is viewed &mdash;
+    <span>and honest about how it works from every one of them too.</span>
+    <cite>— Design principle, Atelier Pagani, Modena</cite>
+  </blockquote>
+</section>
+
+<section id="engine">
+  <div class="section-head reveal">
+    <p class="eyebrow">Powertrain Readout</p>
+    <h2>A Mercedes&ndash;AMG twin-turbo V12,<br>tuned in Affalterbach for Modena.</h2>
+  </div>
+
+  <div class="telemetry-panel reveal">
+    <div class="spec-grid">
+      <div class="spec-cell">
+        <div class="lbl">Configuration</div>
+        <div class="val">V12<span class="unit">Twin-Turbo</span></div>
+      </div>
+      <div class="spec-cell">
+        <div class="lbl">Displacement</div>
+        <div class="val" data-count="5980"><span class="count">0</span><span class="unit">cc</span></div>
+      </div>
+      <div class="spec-cell">
+        <div class="lbl">Max Power</div>
+        <div class="val" data-count="764"><span class="count">0</span><span class="unit">CV @ 5800rpm</span></div>
+      </div>
+      <div class="spec-cell">
+        <div class="lbl">Max Torque</div>
+        <div class="val" data-count="1000"><span class="count">0</span><span class="unit">N&middot;m</span></div>
+      </div>
+      <div class="spec-cell">
+        <div class="lbl">Dry Weight</div>
+        <div class="val" data-count="1255"><span class="count">0</span><span class="unit">kg</span></div>
+      </div>
+      <div class="spec-cell">
+        <div class="lbl">Power-to-Weight</div>
+        <div class="val" data-count="609"><span class="count">0</span><span class="unit">CV/t</span></div>
+      </div>
+    </div>
+
+    <div class="rev-instrument">
+      <div class="lbl">Rev Band — Redline 6200rpm</div>
+      <div class="rev-track"><div class="rev-fill redline" data-width="92"></div></div>
+      <div class="rev-ticks"><span>0</span><span>1500</span><span>3000</span><span>4500</span><span>6000</span><span>6200</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="materials">
+  <div class="section-head reveal">
+    <p class="eyebrow">Material Study</p>
+    <h2>Aerospace weaves,<br>hand-laid by the people who cut them.</h2>
+  </div>
+
+  <div class="material-grid reveal">
+    <div class="material-card">
+      <div class="material-swatch swatch-carbo"></div>
+      <div class="material-content">
+        <div class="idx">01</div>
+        <h3>Carbo-Titanium HP62-G2</h3>
+        <p>Carbon fibre co-woven with titanium filament, autoclave-cured into the monocoque itself &mdash; a structure stiffer and lighter than aluminium, visible under a layer of clear lacquer rather than hidden beneath paint.</p>
+      </div>
+    </div>
+    <div class="material-card">
+      <div class="material-swatch swatch-titanium"></div>
+      <div class="material-content">
+        <div class="idx">02</div>
+        <h3>Aerospace Titanium</h3>
+        <p>The quad exhaust tips, engine bay hardware and structural bolts are milled from titanium, left bare so heat can trace its own blue-bronze patina across every exposed edge.</p>
+      </div>
+    </div>
+    <div class="material-card">
+      <div class="material-swatch swatch-alcantara"></div>
+      <div class="material-content">
+        <div class="idx">03</div>
+        <h3>Leather &amp; Alcantara</h3>
+        <p>Cabin surfaces are cut and stitched by hand in Modena, pairing full-grain leather with Alcantara across a dashboard machined from a single billet of aluminium.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="transmission">
+  <div class="section-head reveal">
+    <p class="eyebrow">Drivetrain</p>
+    <h2>Seven ratios, sequentially applied.</h2>
+  </div>
+
+  <div class="gear-list reveal">
+    <div class="gear-row"><span class="g-num">01</span><span class="g-name">First</span><span class="g-torque">Ratio 3.455</span><span class="bar-wrap"><span class="bar" data-width="95"></span></span></div>
+    <div class="gear-row"><span class="g-num">02</span><span class="g-name">Second</span><span class="g-torque">Ratio 2.235</span><span class="bar-wrap"><span class="bar" data-width="78"></span></span></div>
+    <div class="gear-row"><span class="g-num">03</span><span class="g-name">Third</span><span class="g-torque">Ratio 1.548</span><span class="bar-wrap"><span class="bar" data-width="63"></span></span></div>
+    <div class="gear-row"><span class="g-num">04</span><span class="g-name">Fourth</span><span class="g-torque">Ratio 1.156</span><span class="bar-wrap"><span class="bar" data-width="50"></span></span></div>
+    <div class="gear-row"><span class="g-num">05</span><span class="g-name">Fifth</span><span class="g-torque">Ratio 0.914</span><span class="bar-wrap"><span class="bar" data-width="40"></span></span></div>
+    <div class="gear-row"><span class="g-num">06</span><span class="g-name">Sixth</span><span class="g-torque">Ratio 0.750</span><span class="bar-wrap"><span class="bar" data-width="32"></span></span></div>
+    <div class="gear-row"><span class="g-num">07</span><span class="g-name">Seventh</span><span class="g-torque">Ratio 0.625</span><span class="bar-wrap"><span class="bar" data-width="26"></span></span></div>
+  </div>
+</section>
+
+<section class="closing" id="inquire">
+  <p class="eyebrow" style="justify-content:center;">100 Examples Worldwide</p>
+  <h2 class="display">Every one built<br>to a single owner's brief.</h2>
+  <p>The Huayra Roadster is not configured from a catalogue. Each car is developed in conversation with the atelier, from the weave direction of its monocoque to the stitch of its cabin.</p>
+  <button class="cta">Request an Appointment &nbsp;&rarr;</button>
+</section>
+
+<footer>
+  <span>&copy; Atelier Pagani, Modena — Concept page for design purposes</span>
+  <span>Fig. 01 / Rev. 764</span>
+</footer>
+
+<script>
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  // Count-up numbers
+  const counters = document.querySelectorAll('[data-count]');
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const el = entry.target;
+        const target = parseInt(el.getAttribute('data-count'), 10);
+        const span = el.querySelector('.count');
+        const duration = 1400;
+        const start = performance.now();
+        function tick(now){
+          const p = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          span.textContent = Math.round(eased * target);
+          if(p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        countObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.4 });
+  counters.forEach(el => countObserver.observe(el));
+
+  // Bar / rev fills
+  const bars = document.querySelectorAll('[data-width]');
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.style.width = entry.target.getAttribute('data-width') + '%';
+        barObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  bars.forEach(el => barObserver.observe(el));
+</script>
+
+</body>
+</html>

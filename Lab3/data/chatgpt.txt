@@ -1,0 +1,4 @@
+ChatGPT is an artificial intelligence chatbot developed by OpenAI. It can understand natural language and generate human-like responses to questions and instructions. People use ChatGPT for learning, writing, coding, brainstorming, summarizing information, and many other tasks.
+ChatGPT works by processing the text provided by a user and generating a response based on patterns learned during its training. It can explain difficult topics in simple language, help debug programs, create content, and assist with problem-solving.
+
+However, ChatGPT can sometimes provide incorrect or outdated information, so important information should be verified using reliable sources.
