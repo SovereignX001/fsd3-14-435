@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Pagani | Art, Science, and Vision</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    :root {
+      --bg-dark: #07090b;
+      --bg-panel: #0d1217;
+      --bg-card: rgba(18, 24, 32, 0.75);
+      --gold: #d4af37;
+      --gold-glow: rgba(212, 175, 55, 0.35);
+      --cyan: #00f0ff;
+      --titanium: #8b9bb4;
+      --text-main: #f0f4f8;
+      --text-muted: #6e7d91;
+      --carbon-pattern: radial-gradient(black 15%, transparent 16%) 0 0,
+                        radial-gradient(black 15%, transparent 16%) 8px 8px,
+                        radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+                        radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+      --carbon-bg-size: 16px 16px;
+      --carbon-color: #121417;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: var(--carbon-pattern);
+      background-size: var(--carbon-bg-size);
+      color: var(--text-main);
+      font-family: 'Rajdhani', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .brand-font {
+      font-family: 'Orbitron', monospace;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 70px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 4rem;
+      background: rgba(7, 9, 11, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--gold);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--titanium);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      transition: color 0.3s;
+    }
+
+    .nav-links a.active,
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    .btn-sharp {
+      padding: 0.6rem 1.6rem;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-decoration: none;
+      display: inline-block;
+      clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+      transition: all 0.3s;
+    }
+
+    .btn-sharp:hover {
+      background: var(--gold);
+      color: #000;
+      box-shadow: 0 0 15px var(--gold-glow);
+    }
+
+
+    .about-hero {
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .about-tag {
+      font-size: 0.85rem;
+      color: var(--gold);
+      letter-spacing: 4px;
+      margin-bottom: 1rem;
+    }
+
+    .about-title {
+      font-size: 3.5rem;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(180deg, #fff 0%, #7d8b99 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .about-lead {
+      max-width: 750px;
+      font-size: 1.25rem;
+      color: var(--titanium);
+    }
+
+    .section {
+      padding: 5rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 4rem;
+      align-items: center;
+      margin-bottom: 5rem;
+    }
+
+    .story-text h2 {
+      font-size: 2.2rem;
+      color: #fff;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .story-text p {
+      color: var(--titanium);
+      font-size: 1.05rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .blueprint-card {
+      background: var(--bg-panel);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      padding: 2.5rem;
+      clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+      position: relative;
+    }
+
+    .blueprint-card h3 {
+      font-size: 1.1rem;
+      color: var(--cyan);
+      margin-bottom: 1rem;
+    }
+
+    .blueprint-card blockquote {
+      font-size: 1.1rem;
+      color: #fff;
+      font-style: italic;
+      border-left: 2px solid var(--gold);
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-bottom: 5rem;
+    }
+
+    .pillar-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 2rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .pillar-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-5px);
+    }
+
+    .pillar-number {
+      font-family: 'Orbitron', monospace;
+      color: var(--gold);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .pillar-card h3 {
+      font-size: 1.15rem;
+      color: #fff;
+      margin-bottom: 0.8rem;
+    }
+
+    .pillar-card p {
+      color: var(--titanium);
+      font-size: 0.95rem;
+    }
+
+
+    .featured-product-banner {
+      background: linear-gradient(135deg, rgba(13, 18, 23, 0.9) 0%, rgba(7, 9, 11, 0.95) 100%);
+      border: 1px solid var(--gold);
+      padding: 3.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 25px), calc(100% - 25px) 100%, 0 100%);
+    }
+
+    .product-banner-text h2 {
+      font-size: 2rem;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-banner-text p {
+      color: var(--titanium);
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: #000;
+      border: none;
+      padding: 0.9rem 2.2rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      text-decoration: none;
+      display: inline-block;
+      clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+      transition: all 0.3s;
+    }
+
+    .btn-gold:hover {
+      box-shadow: 0 0 25px var(--gold-glow);
+      transform: scale(1.03);
+    }
+
+
+    footer {
+      padding: 3rem 4rem;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: #040507;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 900px) {
+      .story-grid, .pillars-grid { grid-template-columns: 1fr; }
+      .featured-product-banner { flex-direction: column; text-align: center; gap: 2rem; }
+      nav { padding: 0 1.5rem; }
+      .section { padding: 4rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+
+  <nav>
+    <a href="product.html" class="logo">PAGANI <span>// ATELIER</span></a>
+    <ul class="nav-links">
+      <li><a href="product.html">HUAYRA ROADSTER</a></li>
+      <li><a href="about.html" class="active">ABOUT THE ATELIER</a></li>
+    </ul>
+    <a href="product.html#engine" class="btn-sharp">EXPLORE SPECS</a>
+  </nav>
+
+  <header class="about-hero">
+    <span class="about-tag">// THE PHILOSOPHY OF SAN CESARIO SUL PANARO</span>
+    <h1 class="about-title">WHERE ART MEETS SCIENCE</h1>
+    <p class="about-lead">
+      Founded on the Renaissance ideals of Leonardo da Vinci, Pagani creates tailored automotive sculptures that refuse to compromise between artistic perfection and ruthless aerodynamics.
+    </p>
+  </header>
+
+  <main class="section">
+    <div class="story-grid">
+      <div class="story-text">
+        <h2>Uncompromising Vision by Horacio Pagani</h2>
+        <p>
+          Founded in 1992 in Italy's Motor Valley, Pagani Automobili exists outside the boundaries of industrial mass assembly. Every vehicle is conceived as a work of bespoke art, hand-assembled by artisans who spend thousands of hours refining individual composite fibers and titanium fasteners.
+        </p>
+        <p>
+          We do not merely build hypercars; we challenge material science to forge lightweight structures that harness the wind instead of opposing it.
+        </p>
+      </div>
+
+      <div class="blueprint-card">
+        <h3>THE DA VINCI PRINCIPLE</h3>
+        <blockquote>
+          "Art and Science are disciplines that must walk together hand in hand."
+        </blockquote>
+        <p style="color: var(--titanium); font-size: 0.95rem;">
+          This dualism informs every mechanical linkage, visible exposed-carbon pattern, and aerodynamics system developed inside the San Cesario workshop.
+        </p>
+      </div>
+    </div>
+
+    <div class="pillars-grid">
+      <div class="pillar-card">
+        <div class="pillar-number">01</div>
+        <h3>Material Synthesis</h3>
+        <p>Pioneers of Carbo-Titanium and Carbo-Triax composites, pushing structural rigidity past racing benchmarks while lowering dry weight.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-number">02</div>
+        <h3>Active Dynamics</h3>
+        <p>Four independent aerodynamic flaps constantly balance downforce and drag coefficients in real-time telemetry.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-number">03</div>
+        <h3>Bespoke Craft</h3>
+        <p>No two chassis are identical. Every cockpit is tailored directly to the owner's exact aesthetic and ergonomic specifications.</p>
+      </div>
+    </div>
+
+    <div class="featured-product-banner">
+      <div class="product-banner-text">
+        <span style="font-family: 'Orbitron'; font-size: 0.75rem; color: var(--gold); letter-spacing: 2px;">FLAGSHIP OPEN-TOP HYPERCAR</span>
+        <h2>Discover The Huayra Roadster</h2>
+        <p>
+          764 HP Mercedes-AMG Twin-Turbo V12 wrapped in an ultra-stiff Carbo-Titanium shell weighing just 1,280 kg.
+        </p>
+      </div>
+      <a href="product.html" class="btn-gold">VIEW PRODUCT PAGE &rarr;</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Pagani Automobili S.p.A. &bull; Atelier Story &bull; Handcrafted in Italy</p>
+  </footer>
+
+</body>
+</html>
