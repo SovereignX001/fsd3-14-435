@@ -1,6 +1,6 @@
 let teams =[
-    {id:1,tname:"Rusty",tl:"avinash",email:"ash98@gmail.com",members:6,},
-    {id:1,tname:"acb",tl:"avinashch",email:"avi98@gmail.com",members:1,},
+    {id:1,tname:"Crusty",tl:"Deval",email:"devrajforunow@gmail.com",members:6,},
+    {id:1,tname:"abc",tl:"Deval",email:"devrajforunow@gmail.com",members:1,},
 ];
 
 let nextId=3;
