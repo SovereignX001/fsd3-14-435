@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enquiry Form - BLE Command Center</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            --panel-bg: rgba(30, 41, 59, 0.45);
+            --panel-border: rgba(255, 255, 255, 0.08);
+            --accent-blue: #38bdf8;
+            --accent-blue-glow: rgba(56, 189, 248, 0.3);
+            --accent-green: #4ade80;
+            --accent-green-glow: rgba(74, 222, 128, 0.25);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+        }
+
+        .dashboard {
+            width: 100%;
+            max-width: 680px;
+            background: var(--panel-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--panel-border);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #fff, var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-link {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-blue);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover {
+            text-shadow: 0 0 8px var(--accent-blue-glow);
+            opacity: 0.9;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--panel-border);
+            border-radius: 10px;
+            padding: 12px 16px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.15);
+            background: rgba(0, 0, 0, 0.35);
+        }
+
+        .form-textarea {
+            resize: none;
+            height: 110px;
+        }
+
+        .form-select option {
+            background-color: #1e1b4b;
+            color: var(--text-main);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--accent-blue);
+            color: #0f172a;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 20px var(--accent-blue-glow);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 24px var(--accent-blue-glow);
+        }
+
+        .success-toast {
+            display: none;
+            background: rgba(74, 222, 128, 0.1);
+            border: 1px solid rgba(74, 222, 128, 0.2);
+            color: var(--accent-green);
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard">
+    <header>
+        <h1>Hardware & Integration Enquiry</h1>
+        <a href="index.html" class="nav-link">&larr; Dashboard</a>
+    </header>
+
+    <div id="successToast" class="success-toast">Enquiry submitted successfully! We will get in touch shortly.</div>
+
+    <form id="enquiryForm" onsubmit="handleSubmit(event)">
+        <div class="form-group">
+            <label class="form-label" for="clientName">Full Name</label>
+            <input type="text" id="clientName" class="form-input" placeholder="John Doe" required>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="clientEmail">Email Address</label>
+            <input type="email" id="clientEmail" class="form-input" placeholder="john@example.com" required>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="deviceType">Target Architecture</label>
+            <select id="deviceType" class="form-select">
+                <option value="esp32">ESP32 / ESP8266 Series</option>
+                <option value="arduino">Arduino BLE Hardware</option>
+                <option value="custom">Custom Peripheral Firmware</option>
+                <option value="other">Other BLE Sensor Profile</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="message">Project Requirements / Scope</label>
+            <textarea id="message" class="form-textarea" placeholder="Describe your Bluetooth operational setup or technical roadblock..." required></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">Submit Technical Brief</button>
+    </form>
+</div>
+
+<script>
+    function handleSubmit(event) {
+        event.preventDefault();
+        
+        // Simple UI submission handler simulation
+        document.getElementById('enquiryForm').style.display = 'none';
+        const toast = document.getElementById('successToast');
+        toast.style.display = 'block';
+    }
+</script>
+
+</body>
+</html>

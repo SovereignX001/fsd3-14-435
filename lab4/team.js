@@ -23,12 +23,14 @@ export const updateTeam=(id,updateTeam)=>{
         if(!team) return null;
         Object.assign(team,updateTeam);
         return team;
-}
+};
+
 export const deleteTeam=(id)=>{
     const ind=teams.findIndedx((team)=>team.id===id)
     if (ind ==-1) return false;
     teams.splice(ind,1)
     return true ;
 
-    }
+    };
 
+const (tname, tl, members)
