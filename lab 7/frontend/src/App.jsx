@@ -1,19 +1,26 @@
 const b1 = {
   picUrl: "https://m.media-amazon.com/images/I/710cYy40DUL._AC_UY218_.jpg",
-  bname: "Let us react",
+  bname: "the Courage to be disliked",
   price: 765.00,
   quantity: 5,
   rating: "5/5"
 }
+const b2 = {
+  picUrl: "https://m.media-amazon.com/images/I/617lxveUjYL._AC_UY218_.jpg",
+  bname: "The Alchemist",
+  price: 208.00,
+  quantity: 3,
+  rating: "4/5"
+}
 
-function Book(){
+function Book({ book }) {
   return (
     <div>
-      <img src={b1.picUrl} alt="book" />
-      <h1>{b1.bname}</h1>
-      <h2>Price: {b1.price}</h2>
-      <h3>Quantity: {b1.quantity}</h3>
-      <h4>Rating: {b1.rating}</h4>
+      <img src={book.picUrl} alt="book" />
+      <h1>{book.bname}</h1>
+      <h2>Price: {book.price}</h2>
+      <h3>Quantity: {book.quantity}</h3>
+      <h4>Rating: {book.rating}</h4>
     </div>
   )
 }
@@ -23,7 +30,8 @@ export default function App(){
   <>
   
   <h1>Hello React</h1>
-  <Book />
+  <Book book = {b1} />
+  <Book book = {b2} />
   </>
   )
 }
