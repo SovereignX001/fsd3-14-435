@@ -12,6 +12,13 @@ const b2 = {
   quantity: 3,
   rating: "4/5"
 }
+const b3 = {
+  picUrl: "https://m.media-amazon.com/images/I/61OByUf1TfL._AC_UY218_.jpg",
+  bname: "The Monk Who Sold His Ferrari",
+  price: 150.00,
+  quantity: 2,
+  rating: "4.5/5"
+}
 
 function Book({ book }) {
   return (
@@ -32,6 +39,7 @@ export default function App(){
   <h1>Hello React</h1>
   <Book book = {b1} />
   <Book book = {b2} />
+  <Book book = {b3} />
   </>
   )
 }
